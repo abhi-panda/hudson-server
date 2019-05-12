@@ -1,0 +1,35 @@
+{
+  "name": "hudson_api",
+  "version": "1.0.0",
+  "engines": {
+    "node": "10.15.3"
+  },
+  "description": "Database API for Hudson Android App",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node .\\bin\\www"
+  },
+  "keywords": [
+    "hudson",
+    "database",
+    "api"
+  ],
+  "author": "Abhishek Panda",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.4",
+    "debug": "^4.1.1",
+    "express": "^4.16.4",
+    "helmet": "^3.18.0",
+    "http-errors": "^1.7.2",
+    "morgan": "^1.9.1",
+    "mysql": "^2.17.1",
+    "mysql2": "^1.6.5",
+    "pug": "^2.0.3",
+    "sequelize": "^5.8.5",
+    "serve-favicon": "^2.5.0"
+  }
+}
