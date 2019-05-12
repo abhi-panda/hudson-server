@@ -30,7 +30,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/hudson', routes);
-
+app.use('/',(req,res,next)=>{
+  return res.render('index');
+})
 app.use((req,res,next) => {
   return next(createError(404, 'Page / File Not Found'))
 });
