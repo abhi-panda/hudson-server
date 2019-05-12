@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize('heroku_45ca158108d5570', 'b76879d205a49a', '6ac75979' , {
   host: 'us-cdbr-iron-east-02.cleardb.net',
-  dialect: 'postgres'
+  dialect: 'mysql'
 });
 
 sequelize.authenticate().then( function (err) {
