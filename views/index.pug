@@ -2,4 +2,17 @@ doctype html
 html
   head
   body
-    h1 HudSon
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    a.navbar-brand(href='#') Hudson Android App
+    button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+  
+    .collapse.navbar-collapse(id='navbarSupportedContent')
+      ul.navbar-nav
+        li.nav-item.dropdown
+          a.nav-link.dropdown-toggle(id='navbarDropdownMenuLink', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Topics
+          .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
+            a.dropdown-item(href='#') Settings
+          
+ 
+  
