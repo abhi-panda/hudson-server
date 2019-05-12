@@ -10,10 +10,11 @@ html( lang="en" )
         meta( name='description', content='Hudson API ' )
         //- Bootswatch Theme
         link(href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css", rel="stylesheet")
- 
+        
+
     body(style="padding-bottom:10rem;")
         .container
-          +nav("Project name", "dropdown_menu")
+          +nav("Hudson API Base", "Topics")
             +nav_item_dropdown( "#" )( label="Dropdown")
                 +nav_header Topics
                 +nav_divider
@@ -27,6 +28,7 @@ html( lang="en" )
             .col-md-12.text-center
               span.display-1.d-block Hudson API Base
               .mb-4.lead Please select the appropriate topic from the dropdown to see the List of top Ideas
- 
+          #content
+            block result
         script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' )
         script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js' )

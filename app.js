@@ -30,7 +30,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/hudson', routes);
-app.use('/',(req,res,next)=>{
+app.use('/index',(req,res,next)=>{
   return res.render('index');
 })
 app.use((req,res,next) => {
