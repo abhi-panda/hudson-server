@@ -1,3 +1,5 @@
+include mixins
+
 doctype
 html( lang="en" )
     head
@@ -11,6 +13,20 @@ html( lang="en" )
  
     body(style="padding-bottom:10rem;")
         .container
+          +nav("Project name", "dropdown_menu")
+            +nav_item_dropdown( "#" )( label="Dropdown")
+                +nav_header Topics
+                +nav_divider
+                +nav_item( "#" ) Topic T1
+                +nav_item( "#" ) Topic T2
+                +nav_item( "#" ) Topic T3
+                +nav_item( "#" ) Topic T4
+                +nav_item( "#" ) Topic T5
+            
+          .row.justify-content-center
+            .col-md-12.text-center
+              span.display-1.d-block Hudson API Base
+              .mb-4.lead Please select the appropriate topic from the dropdown to see the List of top Ideas
  
         script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' )
         script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js' )
