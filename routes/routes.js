@@ -141,11 +141,19 @@ router.get(('/topic/:topicID'), function(req,res){
       topicID : req.params.topicID
     }
   });
+  const ideas = topics.forEach(element => {
+    db.Users.findOne({
+      where : {
+        userID : element.userID
+      }
+    })
+  });
 
   Promise
-    .all([topic,topics])
+    .all([topic,topics,ideas])
     .then( responses => {
-      return res.render('result',{topic : responses[0].topic , topics : responses[1]})
+      return res.send({topic : responses[0].topic , topics : responses[1] , ideas : responses[2]})
+      // return res.render('result',{topic : responses[0].topic , topics : responses[1] , ideas : responses[2]})
     })
 });
 
