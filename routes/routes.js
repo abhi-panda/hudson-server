@@ -131,28 +131,22 @@ router.put('/comments/:userID', function (req,res) {
 
 router.get(('/topic/:topicID'), function(req,res){
   console.log(`Topic info for topic id : ${req.params.topicID}`);
-  topic = {}
-  db.Topics.findOne({
-      where : {
-         topicID : req.params.topicID
-      }
-  }).then(
-      topic => {
-        topic = topic
-      }
-  ).then( db.Tables.findAll({
+  const topic = db.Topics.findOne({
     where : {
       topicID : req.params.topicID
     }
-  }).then(topics => {
-    return res.send({topic : topic , topics : topics})
-  }).catch(err => {
-    return res.status(400).send(err);
-})
-  ).catch(err => {
-      return res.status(400).send(err);
-  })
-});
+  });
+  const topics = db.Tables.findAll({
+    where : {
+      topicID : req.params.topicID
+    }
+  });
 
+  Promise
+    .all([topic,topics])
+    .then( responses => {
+      return res.render('result',{topic : responses[0].topic , topics : responses[1]})
+    })
+});
 
 module.exports = router;
