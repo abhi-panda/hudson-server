@@ -146,8 +146,8 @@ router.get(('/topic/:topicID'), function(req,res){
   Promise
     .all([topic,topics])
     .then( responses => {
-      return res.send({topic : responses[0].topic , topics : responses[1]})
-      // return res.render('result',{topic : responses[0].topic , topics : responses[1] , ideas : responses[2]})
+      // return res.send({topic : responses[0].topic , topics : responses[1]})
+      return res.render('result',{topic : responses[0].topic , topics : responses[1]})
     })
 });
 
