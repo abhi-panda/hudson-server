@@ -145,7 +145,7 @@ router.get(('/topic/:topicID'), function(req,res){
       topicID : req.params.topicID
     }
   }).then(topics => {
-    return res.render('result',{topics : JSON.parse(topics),topic : JSON.parse(topic.topic)})
+    return res.send({topic : topic , topics : topics})
   }).catch(err => {
     return res.status(400).send(err);
 })
