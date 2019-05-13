@@ -129,4 +129,30 @@ router.put('/comments/:userID', function (req,res) {
     });
 });
 
+router.get(('/topic/:topicID'), function(req,res){
+  console.log(`Topic info for topic id : ${req.params.topicID}`);
+  topic = {}
+  db.Topics.findOne({
+      where : {
+         topicID : req.params.topicID
+      }
+  }).then(
+      topic => {
+        topic = topic
+      }
+  ).then( db.Tables.findAll({
+    where : {
+      topicID : req.params.topicID
+    }
+  }).then(topics => {
+    return res.render('result',{topics : topics,topic : topic})
+  }).catch(err => {
+    return res.status(400).send(err);
+})
+  ).catch(err => {
+      return res.status(400).send(err);
+  })
+});
+
+
 module.exports = router;
