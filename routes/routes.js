@@ -148,7 +148,62 @@ router.get(('/topic/:topicID'), function(req,res){
     .then( responses => {
       // return res.send({topic : responses[0].topic , topics : responses[1]})
       return res.render('result',{topic : responses[0].topic , topics : responses[1]})
-    })
+    }).catch ( err => {
+      return res.status(400).send(err);
+    });
+});
+
+router.get(('/check/:userID'),function(req,res){
+  console.log(`Check status for ${req.params.userID}`);
+  const leader = db.Users.findOne({
+    where : {
+      userID : req.params.userID
+    }
+  });
+  const users = db.Users.findAll({
+    where : {
+      tableID : leader.tableID
+    }
+  });
+  const table = db.Tables.findOne({
+    where : {
+      tableID : leader.tableID
+    }
+  });
+
+  Promise
+    .all([users,table])
+    .then(responses => {
+      for (let i = 0; i < Object.keys(responses[0]).length; i++) {
+        if((responses[0][i].ideaRateCount) && ((responses[0][i].ideaRateCount) == (responses[1].peopleCount)-1) ){
+          return res.send({result : true , tableID : responses[1].tableID})
+        }
+        else {
+          return res.send({result : false, tableID : responses[1].tableID})
+        }
+      }
+    }).catch ( err => {
+      return res.status(400).send(err);
+    });
+});
+
+router.get(('/topidea/:tableID'),function(req,res){
+  console.log(`Top Idea for table :${req.params.tableID}`);
+  db.Users.max('rating', {
+    where : {
+      tableID : req.params.tableID
+    }
+  }).then (max => {
+    if(Object.keys(max).length == 1){
+      return res.send({tie : false, Users : max})
+    }else if(Object.keys(max).length > 1){
+      return res.send({tie : true, Users : max})
+    }else {
+      return res.send({tie : null, Users : max})
+    }
+  }).catch ( err => {
+    return res.status(400).send(err);
+  });
 });
 
 module.exports = router;
