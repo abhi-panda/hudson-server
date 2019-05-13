@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router();
+const fetch = require("node-fetch");
 const db = require('../db.js');
 const Op = require('sequelize').Op
 
@@ -141,18 +142,11 @@ router.get(('/topic/:topicID'), function(req,res){
       topicID : req.params.topicID
     }
   });
-  const ideas = topics.forEach(element => {
-    db.Users.findOne({
-      where : {
-        userID : element.userID
-      }
-    })
-  });
 
   Promise
-    .all([topic,topics,ideas])
+    .all([topic,topics])
     .then( responses => {
-      return res.send({topic : responses[0].topic , topics : responses[1] , ideas : responses[2]})
+      return res.send({topic : responses[0].topic , topics : responses[1]})
       // return res.render('result',{topic : responses[0].topic , topics : responses[1] , ideas : responses[2]})
     })
 });

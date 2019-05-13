@@ -17,6 +17,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     peopleCount : {
       type : DataTypes.INTEGER
+    },
+    topUserName : {
+      type : DataTypes.STRING
+    },
+    topUserIdea : {
+      type : DataTypes.STRING
     }
   },
   {
