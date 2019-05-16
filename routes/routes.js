@@ -189,18 +189,34 @@ router.get(('/check/:userID'),function(req,res){
 
 router.get(('/topidea/:tableID'),function(req,res){
   console.log(`Top Idea for table :${req.params.tableID}`);
-  db.Users.max('rating', {
+  const max = db.Users.max('rating', {
     where : {
       tableID : req.params.tableID
     }
-  }).then (max => {
-    if(Object.keys(max).length == 1){
-      return res.send({tie : false, Users : max})
-    }else if(Object.keys(max).length > 1){
-      return res.send({tie : true, Users : max})
-    }else {
-      return res.send({tie : null, Users : max})
+  });
+  const Users = db.Users.findAll({
+    where : {
+      rating : max
     }
+  });
+
+  Promise
+    .all([Users])
+    .then(responses => {
+      if(Object.keys(responses[0]).length == 1){
+        return res.send({tie : false, Users : responses[0]})
+      }else if(Object.keys(responses[0]).length > 1){
+        return res.send({tie : true, Users : responses[0]})
+      }else {
+        return res.send({tie : null, Users : responses[0]})
+      }
+    })
+  
+  
+  
+  
+  .then (max => {
+    
   }).catch ( err => {
     return res.status(400).send(err);
   });
