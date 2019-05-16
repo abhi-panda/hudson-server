@@ -193,15 +193,23 @@ router.get(('/topidea/:tableID'),function(req,res){
   const max = db.Users.findAll({
     attributes: [sequelize.fn('max', sequelize.col('rating'))],
     raw: true
-  });
-  const Users = db.Users.findAll({
-    where : {
-      rating : max
+  }).then(responses => {
+    if(Object.keys(responses[0]).length == 1){
+      return res.send({tie : false, Users : responses[0]})
+    }else if(Object.keys(responses[0]).length > 1){
+      return res.send({tie : true, Users : responses[0]})
+    }else {
+      return res.send({tie : null, Users : responses[0]})
     }
-  });
+  })
+  // const Users = db.Users.findAll({
+  //   where : {
+  //     rating : max
+  //   }
+  // });
 
-  Promise
-    .all([Users])
+  // Promise
+  //   .all([Users])
     .then(responses => {
       if(Object.keys(responses[0]).length == 1){
         return res.send({tie : false, Users : responses[0]})
@@ -210,14 +218,7 @@ router.get(('/topidea/:tableID'),function(req,res){
       }else {
         return res.send({tie : null, Users : responses[0]})
       }
-    })
-  
-  
-  
-  
-  .then (max => {
-    
-  }).catch ( err => {
+    }).catch ( err => {
     return res.status(400).send(err);
   });
 });
