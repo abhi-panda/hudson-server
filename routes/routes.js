@@ -191,12 +191,12 @@ router.get(('/check/:userID'),function(req,res){
 router.get(('/topidea/:tableID'),function(req,res){
   console.log(`Top Idea for table :${req.params.tableID}`);
   const max = db.Users.findAll({
-    attributes: [sequelize.fn('max', sequelize.col('rating'))],
-    raw: true
+    attributes: [[sequelize.fn('max', sequelize.col('price')), 'maxPrice']],
+    raw: true,
   });
   const Users = db.Users.findAll({
     where : {
-      rating : max.rating
+      rating : max
     }
   });
 
