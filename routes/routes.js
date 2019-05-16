@@ -193,23 +193,15 @@ router.get(('/topidea/:tableID'),function(req,res){
   const max = db.Users.findAll({
     attributes: [sequelize.fn('max', sequelize.col('rating'))],
     raw: true
-  }).then(responses => {
-    if(Object.keys(responses[0]).length == 1){
-      return res.send({tie : false, Users : responses[0]})
-    }else if(Object.keys(responses[0]).length > 1){
-      return res.send({tie : true, Users : responses[0]})
-    }else {
-      return res.send({tie : null, Users : responses[0]})
+  });
+  const Users = db.Users.findAll({
+    where : {
+      rating : max.rating
     }
-  })
-  // const Users = db.Users.findAll({
-  //   where : {
-  //     rating : max
-  //   }
-  // });
+  });
 
-  // Promise
-  //   .all([Users])
+  Promise
+    .all([Users])
     .then(responses => {
       if(Object.keys(responses[0]).length == 1){
         return res.send({tie : false, Users : responses[0]})
