@@ -111,7 +111,7 @@ router.put('/user/:userID', function (req,res) {
 
 router.put('/comments/:userID', function (req,res) {
     console.log(`Comment for idea of: ${req.params.userID}`);
-    var userChanged = db.Users.build(req.body, {isNewRecord : false});
+    var userChanged = db.Comments.build(req.body, {isNewRecord : false});
     db.Comments.findOne({
       where : {
         commentID : {
