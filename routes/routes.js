@@ -3,6 +3,7 @@ const router = express.Router();
 const fetch = require("node-fetch");
 const db = require('../db.js');
 const Op = require('sequelize').Op
+const sequelize = require('sequelize')
 
 router.get('/users/:tableID',function(req,res){
     console.log(`All Users for table no: ${req.params.tableID}`);
@@ -190,7 +191,7 @@ router.get(('/check/:userID'),function(req,res){
 router.get(('/topidea/:tableID'),function(req,res){
   console.log(`Top Idea for table :${req.params.tableID}`);
   const max = db.Users.findAll({
-    attributes: [fn('max', col('rating'))],
+    attributes: [sequelize.fn('max', sequelize.col('rating'))],
     raw: true
   });
   const Users = db.Users.findAll({
