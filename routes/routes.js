@@ -195,21 +195,21 @@ router.get(('/topidea/:tableID'),function(req,res){
       tableID : req.params.tableID
     }
   });
-  const Users = db.Users.findAll({
+  const users = db.Users.findAll({
     where : {
       rating : max
     }
   });
 
   Promise
-    .all([Users,max])
+    .all([users,max])
     .then(responses => {
       if(Object.keys(responses[0]).length == 1){
-        return res.send({tie : false, Users : responses[0], max : responses[1]})
+        return res.send({tie : false, Users : JSONStringify(responses[0]), max : responses[1]})
       }else if(Object.keys(responses[0]).length > 1){
-        return res.send({tie : true, Users : responses[0], max : responses[1]})
+        return res.send({tie : true, Users : JSONStringify(responses[0]), max : responses[1]})
       }else {
-        return res.send({tie : null, Users : responses[0], max : responses[1]})
+        return res.send({tie : null, Users : JSONStringify(responses[0]), max : responses[1]})
       }
     }).catch ( err => {
     return res.status(400).send(err);
