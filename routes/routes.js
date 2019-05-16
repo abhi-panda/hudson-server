@@ -119,9 +119,9 @@ router.put('/comments/:userID', function (req,res) {
         }
     }
     }).then (user => {
-      if (!user) {
-        return res.send("User not found");
-      }
+      // if (!user) {
+      //   return res.send("User not found");
+      // }
       return userChanged.save();
     }).then (user => {
       return res.send(user);
