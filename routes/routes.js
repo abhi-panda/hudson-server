@@ -202,14 +202,14 @@ router.get(('/topidea/:tableID'),function(req,res){
   });
 
   Promise
-    .all([Users])
+    .all([Users,max])
     .then(responses => {
       if(Object.keys(responses[0]).length == 1){
-        return res.send({tie : false, Users : responses[0]})
+        return res.send({tie : false, Users : responses[0], max : responses[1]})
       }else if(Object.keys(responses[0]).length > 1){
-        return res.send({tie : true, Users : responses[0]})
+        return res.send({tie : true, Users : responses[0], max : responses[1]})
       }else {
-        return res.send({tie : null, Users : responses[0]})
+        return res.send({tie : null, Users : responses[0], max : responses[1]})
       }
     }).catch ( err => {
     return res.status(400).send(err);
